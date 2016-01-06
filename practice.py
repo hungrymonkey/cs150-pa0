@@ -26,7 +26,7 @@ def manhattan_distance(loc1, loc2):
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
     #raise Exception("Not implemented yet")
-    return math.sqrt( (loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2 )
+    return math.sqrt( (loc2[1] - loc1[1])**2 + (loc2[0] - loc1[0])**2 )
     # END_YOUR_CODE
 
 ############################################################
@@ -39,7 +39,7 @@ def sparse_vector_dot_product(v1, v2):
     You might find it useful to use sum() and a list comprehension.
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
-    raise Exception("Not implemented yet")
+    return sum( [ k*v2[v] for (k,v) in enumerate(v1) ] )
     # END_YOUR_CODE
 
 ############################################################
@@ -54,13 +54,12 @@ def compute_most_frequent_word(text):
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
     cnt = collections.Counter(text.split())
-    return (set(filter( lambda k: cnt[k]==cnt[max(cnt)], cnt.keys())), cnt[max(cnt)])
-    #raise Exception("Not implemented yet")
+    count = max(cnt.values())
+    cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
+    return (set(cnt.elements()), count)
     # END_YOUR_CODE
-    #count = cnt[max(cnt)]
-    #cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
-    #return (set(cnt.elements()), count)
-
+    #return (set(filter( lambda k: cnt[k]==cnt[max(cnt)], cnt.keys())), cnt[max(cnt)])
+    #raise Exception("Not implemented yet")
 ############################################################
 # Problem 1e
 
@@ -91,9 +90,9 @@ def nested_parentheses(expression):
     like "(())" or "((()))". Suggestion: check the first and last chars, 
     and then recur on what's inside them. 
 
-    nestedParentheses("(())") → true
-    nestedParentheses("((()))") → true
-    nestedParentheses("(((x))") → false
+    nestedParentheses("(())") -> true
+    nestedParentheses("((()))") -> true
+    nestedParentheses("(((x))") -> false
     
     Use this link to practice in Java first:
     http://codingbat.com/prob/p183174
