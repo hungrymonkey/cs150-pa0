@@ -1,6 +1,5 @@
 import collections
 import functools
-import math
 ############################################################
 # Problem 1a
 
@@ -26,7 +25,7 @@ def manhattan_distance(loc1, loc2):
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
     #raise Exception("Not implemented yet")
-    return math.sqrt( (loc2[1] - loc1[1])**2 + (loc2[0] - loc1[0])**2 )
+    return abs((loc1[1] - loc2[1])) + abs((loc1[0] - loc2[0]))
     # END_YOUR_CODE
 
 ############################################################
@@ -54,12 +53,12 @@ def compute_most_frequent_word(text):
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
     cnt = collections.Counter(text.split())
-    count = max(cnt.values())
-    cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
-    return (set(cnt.elements()), count)
+    return (set(filter( lambda k: cnt[k]==max(cnt.values()), cnt.keys())), max(cnt.values()))
     # END_YOUR_CODE
-    #return (set(filter( lambda k: cnt[k]==cnt[max(cnt)], cnt.keys())), cnt[max(cnt)])
     #raise Exception("Not implemented yet")
+    #count = max(cnt.values())
+    #cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
+    #return (set(cnt.elements()), count)
 ############################################################
 # Problem 1e
 
