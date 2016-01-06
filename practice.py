@@ -54,12 +54,12 @@ def compute_most_frequent_word(text):
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
     cnt = collections.Counter(text.split())
-    count = cnt[max(cnt)]
-    cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
-    maxWords = set(cnt.elements())
-    return (maxWords, count)
+    return (set(filter( lambda k: cnt[k]==cnt[max(cnt)], cnt.keys())), cnt[max(cnt)])
     #raise Exception("Not implemented yet")
     # END_YOUR_CODE
+    #count = cnt[max(cnt)]
+    #cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
+    #return (set(cnt.elements()), count)
 
 ############################################################
 # Problem 1e
