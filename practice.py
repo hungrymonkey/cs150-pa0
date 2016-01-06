@@ -1,3 +1,5 @@
+""" Pylint told me I should add an doc String"""
+
 import collections
 import functools
 ############################################################
@@ -11,7 +13,8 @@ def compute_max_word_length(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
-    return functools.reduce( lambda a,b: min(a,b) if len(min(a,b)) > len(max(a,b)) else max(a,b), text.split())
+    var_f = lambda a, b: min(a, b) if len(min(a, b)) > len(max(a, b)) else max(a, b)
+    return functools.reduce(var_f, text.split())
     #raise Exception("Not implemented yet")
     # END_YOUR_CODE
 
@@ -31,14 +34,14 @@ def manhattan_distance(loc1, loc2):
 ############################################################
 # Problem 1c
 
-def sparse_vector_dot_product(v1, v2):
+def sparse_vector_dot_product(self_v1, self_v2):
     """
     Given two sparse vectors |v1| and |v2|, each represented as Counters, return
     their dot product.
     You might find it useful to use sum() and a list comprehension.
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
-    return sum( [ k*v2[v] for (k,v) in enumerate(v1) ] )
+    return sum([v*self_v2[k] for (k, v) in self_v1.most_common()])
     # END_YOUR_CODE
 
 ############################################################
@@ -53,8 +56,10 @@ def compute_most_frequent_word(text):
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
     cnt = collections.Counter(text.split())
-    return (set(filter( lambda k: cnt[k]==max(cnt.values()), cnt.keys())), max(cnt.values()))
+    var_f = lambda k: cnt[k] == max(cnt.values())	
+    return (set([k for k in cnt.keys() if var_f(k)]), max(cnt.values()))
     # END_YOUR_CODE
+    #return (set(filter(f, cnt.keys())), max(cnt.values()))
     #raise Exception("Not implemented yet")
     #count = max(cnt.values())
     #cnt.subtract(collections.Counter(cnt.keys()*(count-1)))
@@ -69,13 +74,16 @@ def correct_parentheses(expression):
     Hint: use stack
     """
     # BEGIN_YOUR_CODE 
-    st = list()
-    for c in iter(expression):
-        if c == '(':
-            st.append(c)
-        elif c == ')':
-            st.pop()
-    return len(st) == 0
+    var_st = list()
+    for var_c in iter(expression):
+        if var_c == '(':
+            var_st.append(var_c)
+        elif var_c == ')':
+            try:
+                var_st.pop()
+            except IndexError:
+                return False
+    return len(var_st) == 0
     #raise Exception("Not implemented yet")
     # END_YOUR_CODE
     
@@ -98,10 +106,10 @@ def nested_parentheses(expression):
     """
     # BEGIN_YOUR_CODE 
     if expression == "":
-       return True
-    if expression.startswith('(') and  expression.endswith( ')'):
-       return nested_parentheses( expression[1:-1] )
+        return True
+    if expression.startswith('(') and  expression.endswith(')'):
+        return nested_parentheses(expression[1:-1])
     else:
-       return False
+        return False
     #raise Exception("Not implemented yet")
     # END_YOUR_CODE    
