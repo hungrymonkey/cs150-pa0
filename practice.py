@@ -12,7 +12,7 @@ def compute_max_word_length(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
-    return functools.reduce( lambda a,b: max(a,b) if len(a) == len(b) else a if len(a)> len(b) else b,text.split())
+    return functools.reduce( lambda a,b: min(a,b) if len(min(a,b)) > len(max(a,b)) else max(a,b), text.split())
     #raise Exception("Not implemented yet")
     # END_YOUR_CODE
 
